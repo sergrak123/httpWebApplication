@@ -1,2 +1,2 @@
 # httpwebapplication
-Web app for working w/ http request and finding broken links on the website
+Web app for working w/ http requests and finding broken links on the website
