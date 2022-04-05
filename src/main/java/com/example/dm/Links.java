@@ -22,8 +22,6 @@ public class Links {
         srcLink = link;
     }
 
-
-
     public String parseHTML(String sourceLink) throws IOException {
 
         String html = null;
@@ -43,38 +41,6 @@ public class Links {
         }
         return html;
     }
-
-    public String parseHTMLWHTTP(String sourceLink) throws IOException {
-
-        String html = null;
-        try {
-            String url = sourceLink;
-
-            URLConnection connection = new URL(url).openConnection();
-            Scanner scanner = new Scanner(connection.getInputStream());
-            scanner.useDelimiter("\\Z");
-
-            html = scanner.next();
-            scanner.close();
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
-        return html;
-    }
-//    public String parseHTMLWHTTP(String sourceLink) throws IOException {
-//
-//        String url = sourceLink;
-//
-//        URLConnection connection = new URL(url).openConnection();
-//        Scanner scanner = new Scanner(connection.getInputStream());
-//        scanner.useDelimiter("\\Z");
-//
-//        String html = scanner.next();
-//        scanner.close();
-//
-//        return html;
-//    }
 
     public void getURLs(String html) throws IOException {
 
@@ -98,17 +64,6 @@ public class Links {
                     }
                 }
             }
-            //--------------------------------
-//            if(!link.startsWith("/")&& !link.startsWith("#")&&!link.startsWith("tel")&&!link.startsWith("mail")  ){
-//                URL url = new URL(link);
-//                String host = url.getHost();
-//                finall+=host+ "\n";
-//
-//            }
-//
-//            finall+=link+ "\n";
-        }
-//        return finall;
     }
 
     public String getInternal(String link) throws MalformedURLException {
@@ -144,21 +99,6 @@ public class Links {
         return false;
     }
 
-    public boolean isValid1(String internalLink) throws IOException {
-
-        URL url = new URL(internalLink);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("Content-Type", "href");
-        connection.setConnectTimeout(10000);
-        if (connection.getResponseCode()!= HttpURLConnection.HTTP_OK){
-            return false;
-        }
-        else
-            return true;
-    }
-
     public boolean isValid(String internalLink) throws IOException {
 
         URL url = new URL(internalLink);
@@ -176,34 +116,8 @@ public class Links {
         else
             return true;
     }
-
-
-//    public String findBrokenURLs(String internalLink) throws IOException {
-//
-//        URL url = new URL(internalLink);
-//        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//
-//        connection.setRequestMethod("GET");
-//        connection.setRequestProperty("Content-Type", "href");
-//        connection.setConnectTimeout(10000);
-//        if (connection.getResponseCode()>= 400){
-//            return internalLink;
-//        }
-//        else
-//            return null;
-//    }
-
-
-
-    //    public boolean isInternal(String link){
-//        if(link.startsWith("https://" + srcLink) ||
-//                link.startsWith("http://" + srcLink) ||
-//                link.startsWith("https://www." + srcLink) ||
-//                link.startsWith("http://www." + srcLink)){
-//        }
-//        return true;
-//    }
-
+        
+        
 
     public StringBuffer getBySocket() throws IOException {
 
@@ -230,5 +144,26 @@ public class Links {
         rd.close();
         return response;
     }
+        
+    public String parseHTMLWHTTP(String sourceLink) throws IOException {
+
+        String html = null;
+        try {
+            String url = sourceLink;
+
+            URLConnection connection = new URL(url).openConnection();
+            Scanner scanner = new Scanner(connection.getInputStream());
+            scanner.useDelimiter("\\Z");
+
+            html = scanner.next();
+            scanner.close();
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return html;
+    }    
+        
+        
 
 }
